@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class UsuarioDTO {
     private Long id;
-    private String tipoDocumento;
+    private String dni;
     private String numeroDocumento;
     private String nombres;
     private String apellidoPaterno;
