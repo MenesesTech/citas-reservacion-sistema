@@ -17,24 +17,20 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "dni", unique = true, nullable = false)
     private String dni;
     private String password;
     private String nombres;
-    @Column(name = "apellido_paterno")
     private String apellidoPaterno;
-    @Column(name = "apellido_materno")
     private String apellidoMaterno;
-    @Column(name = "fecha_nacimiento")
     private LocalDate fechaNacimiento;
     private String celular;
-    private String correo;
+    private String email;
     private String genero;
     private String departamento;
     private String provincia;
     private String distrito;
     private String direccion;
 
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Cita> citas;
 }

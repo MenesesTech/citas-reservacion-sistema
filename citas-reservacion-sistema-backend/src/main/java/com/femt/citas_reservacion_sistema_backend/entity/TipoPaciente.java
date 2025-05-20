@@ -20,6 +20,6 @@ public class TipoPaciente {
 
     private String nombre;
 
-    @OneToMany(mappedBy = "tipoPaciente")
+    @OneToMany(mappedBy = "tipoPaciente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Cita> citas;
 }

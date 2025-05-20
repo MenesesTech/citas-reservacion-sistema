@@ -18,6 +18,6 @@ public class Sede {
     private Long id;
     private String nombre;
 
-    @OneToMany(mappedBy = "sede")
+    @OneToMany(mappedBy = "sede", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Cita> citas;
 }

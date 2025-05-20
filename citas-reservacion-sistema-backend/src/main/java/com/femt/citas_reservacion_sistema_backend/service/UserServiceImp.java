@@ -17,11 +17,6 @@ public class UserServiceImp implements UserService {
     private UsuarioRepository usuarioRepository;
     private UsuarioMapper usuarioMapper;
 
-    public UserServiceImp(UsuarioRepository usuarioRepository, UsuarioMapper usuarioMapper) {
-        this.usuarioRepository = usuarioRepository;
-        this.usuarioMapper = usuarioMapper;
-    }
-
     @Override
     public List<UsuarioDTO> listaUsuarios() {
         return this.usuarioRepository.findAll().stream().map(usuarioMapper::toDTO)
