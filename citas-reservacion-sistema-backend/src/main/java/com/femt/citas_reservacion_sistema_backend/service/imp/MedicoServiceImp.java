@@ -16,7 +16,13 @@ public class MedicoServiceImp implements MedicoService {
 
     @Autowired
     private MedicoRepository medicoRepository;
+    @Autowired
     private MedicoMapper medicoMapper;
+
+    @Override
+    public List<MedicoDTO> obtenerMedicosPorEspecialidad(Long especialidadId) {
+        return medicoMapper.toDTOList(medicoRepository.findByEspecialidadId(especialidadId));
+    }
 
     @Override
     public List<MedicoDTO> listaMedicos() throws Exception {

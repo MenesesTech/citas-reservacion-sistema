@@ -11,7 +11,7 @@ public interface EspecialidadService {
 
     Optional<EspecialidadDTO> obtenerEspecialidadPorId(Long id) throws Exception;
 
-    List<EspecialidadDTO> listarEspecialidadPorMedico(MedicoDTO medicoDTO);
+    List<EspecialidadDTO> listarEspecialidadPorMedico(MedicoDTO medicoDTO) throws Exception;
 
     void guardarEspecialidad(EspecialidadDTO especialidadRequest) throws Exception;
 

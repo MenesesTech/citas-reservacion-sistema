@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface CitaService {
 
-    void guardarCita(Long idMedico, Long idPaciente, Long idTipoPaciente, Long idFechaHora) throws Exception;
+    void guardarCita(Long idMedico, Long idPaciente, Long idTipoPaciente, Long idFechaHora, Long idEspecialidad)
+            throws Exception;
 
     void eliminarCita(Long id) throws Exception;
 

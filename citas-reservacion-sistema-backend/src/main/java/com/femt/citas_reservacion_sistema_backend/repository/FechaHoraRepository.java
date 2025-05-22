@@ -13,4 +13,10 @@ import org.springframework.stereotype.Repository;
 public interface FechaHoraRepository extends JpaRepository<FechaHora, Long> {
     List<FechaHora> findByMedicoIdAndFechaAndHoraAndDisponibleTrue(Long medicoId, LocalDate fecha, LocalTime hora,
             Boolean disponible);
+
+    // AGREGAR METODO PARA BUSCAR POR MEDICO, FECHA Y HORA
+    FechaHora findByMedicoIdAndFechaAndHora(Long medicoId, LocalDate fecha, LocalTime hora);
+
+    // AGREGAR METODO PARA OBTENER HORARIOS DISPONIBLES POR MÉDICO
+    List<FechaHora> findByMedicoIdAndDisponibleTrue(Long medicoId);
 }

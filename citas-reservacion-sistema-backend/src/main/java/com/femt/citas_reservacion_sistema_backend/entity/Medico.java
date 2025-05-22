@@ -14,7 +14,7 @@ import java.util.List;
 @Table(name = "medicos")
 public class Medico {
     @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nombre;
@@ -26,7 +26,8 @@ public class Medico {
     @JoinColumn(name = "sede_id")
     private Sede sede;
 
-    @OneToMany(mappedBy = "medico")
+    @ManyToMany
+    @JoinTable(name = "medico_especialidad", joinColumns = @JoinColumn(name = "medico_id"), inverseJoinColumns = @JoinColumn(name = "especialidad_id"))
     private List<Especialidad> especialidad;
 
     @OneToOne(mappedBy = "medico", cascade = CascadeType.ALL)

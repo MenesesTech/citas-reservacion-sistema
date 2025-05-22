@@ -17,6 +17,7 @@ public class EspecialidadServiceImp implements EspecialidadService {
 
     @Autowired
     private EspecialidadRepository especialidadRepository;
+    @Autowired
     private EspecialidadMapper especialidadMapper;
 
     @Override

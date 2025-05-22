@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,10 +15,9 @@ public class Especialidad {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column(unique = false)
     private String nombre;
 
-    @ManyToOne
-    @JoinColumn(name = "medico_id")
+    @ManyToMany(mappedBy = "especialidades")
     private Medico medico;
 }

@@ -19,6 +19,7 @@ public class CitaDTO {
     private String estado;
     private String medicoNombre;
     private String especialidadNombre;
+    private String especialidadId;
     private String tipoPacienteNombre;
     private String medicoId;
     private String usuarioId;

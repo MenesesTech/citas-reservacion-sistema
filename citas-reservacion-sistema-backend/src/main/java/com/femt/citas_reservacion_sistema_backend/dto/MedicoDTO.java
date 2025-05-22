@@ -1,5 +1,7 @@
 package com.femt.citas_reservacion_sistema_backend.dto;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,5 +16,5 @@ public class MedicoDTO {
     private String correo;
     private String celular;
     private String sede;
-    private String especialidad;
+    private List<EspecialidadDTO> especialidades;
 }

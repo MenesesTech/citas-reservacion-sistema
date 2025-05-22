@@ -9,10 +9,13 @@ import com.femt.citas_reservacion_sistema_backend.dto.TipoPacienteDTO;
 import com.femt.citas_reservacion_sistema_backend.mapper.TipoPacienteMapper;
 import com.femt.citas_reservacion_sistema_backend.repository.TipoPacienteRepository;
 import com.femt.citas_reservacion_sistema_backend.service.TipoPacienteService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class TipoPacienteServiceImp implements TipoPacienteService {
     @Autowired
     private TipoPacienteRepository tipoPacienteRepository;
+    @Autowired
     private TipoPacienteMapper tipoPacienteMapper;
 
     @Override

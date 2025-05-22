@@ -41,5 +41,9 @@ public class Cita {
 
     @OneToOne(mappedBy = "cita", cascade = CascadeType.ALL)
     private Pago pago;
-}
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "especialidad_id")
+    private Especialidad especialidad;
+
+}
