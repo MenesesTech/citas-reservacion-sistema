@@ -12,7 +12,6 @@ import java.time.LocalDate;
 public class UsuarioDTO {
     private Long id;
     private String dni;
-    private String numeroDocumento;
     private String nombres;
     private String apellidoPaterno;
     private String apellidoMaterno;

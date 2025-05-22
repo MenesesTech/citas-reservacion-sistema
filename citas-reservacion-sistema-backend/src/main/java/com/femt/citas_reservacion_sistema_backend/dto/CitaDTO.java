@@ -12,7 +12,5 @@ public class CitaDTO {
     private String estado;
     private String medicoNombre;
     private String especialidadNombre;
-    private String sedeNombre;
-    private String modalidadNombre;
     private String tipoPacienteNombre;
 }

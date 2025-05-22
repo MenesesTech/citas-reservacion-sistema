@@ -19,7 +19,7 @@ public class Pago {
     private Long id;
 
     private BigDecimal monto;
-    private String id_transaccion_pasarela;
+    private String idTransaccionPasarela;
     private String proveedor_pasarela;
     private LocalDateTime fechaPago = LocalDateTime.now();
 

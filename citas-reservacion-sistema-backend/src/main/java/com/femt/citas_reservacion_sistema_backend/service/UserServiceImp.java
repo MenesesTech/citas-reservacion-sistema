@@ -1,8 +1,10 @@
 package com.femt.citas_reservacion_sistema_backend.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.femt.citas_reservacion_sistema_backend.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,41 +20,38 @@ public class UserServiceImp implements UserService {
     private UsuarioMapper usuarioMapper;
 
     @Override
-    public List<UsuarioDTO> listaUsuarios() {
-        return this.usuarioRepository.findAll().stream().map(usuarioMapper::toDTO)
-                .collect(Collectors.toList());
+    public List<UsuarioDTO> listaUsuarios() throws Exception {
+        return usuarioRepository.findAll().stream()
+                .map(usuarioMapper::toDTO).collect(Collectors.toList());
     }
 
     @Override
-    public UsuarioDTO obtenerUsuarioPorId(Long id) {
-        return this.usuarioRepository.findById(id).map(usuarioMapper::toDTO)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+    public Optional<UsuarioDTO> obtenerUsuarioPorId(Long id) throws Exception {
+        return usuarioRepository.findById(id)
+                .map(usuarioMapper::toDTO);
     }
 
     @Override
-    public UsuarioDTO obtenerUsuarioPorEmail(String email) {
-        return this.usuarioRepository.findByEmail(email).map(usuarioMapper::toDTO)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+    public void guardarUsuario(UsuarioDTO usuarioRequest) throws Exception {
+        try {
+            this.usuarioRepository.save(usuarioMapper.toEntity(usuarioRequest));
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
 
     @Override
-    public UsuarioDTO obtenerUsuarioPorDni(String dni) {
-        return this.usuarioRepository.findByDni(dni).map(usuarioMapper::toDTO)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-    }
-
-    @Override
-    public void guardarUsuario(UsuarioDTO usuarioDTO) {
-        this.usuarioRepository.save(usuarioMapper.toEntity(usuarioDTO));
-    }
-
-    @Override
-    public void eliminarUsuario(Long id) {
+    public void eliminarUsuario(Long id) throws Exception {
+        Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new Exception("Usuario no encontrado"));
         this.usuarioRepository.deleteById(id);
     }
 
     @Override
-    public void actualizarUsuario(UsuarioDTO usuarioDTO) {
-        this.usuarioRepository.save(usuarioMapper.toEntity(usuarioDTO));
+    public void actualizarUsuario(UsuarioDTO usuarioRequest) throws Exception {
+        try {
+            this.usuarioRepository.save(usuarioMapper.toEntity(usuarioRequest));
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
 }

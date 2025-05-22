@@ -32,20 +32,12 @@ public class Cita {
     private Medico medico;
 
     @ManyToOne
-    @JoinColumn(name = "especialidad_id")
-    private Especialidad especialidad;
-
-    @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
     @ManyToOne
     @JoinColumn(name = "tipo_paciente_id")
     private TipoPaciente tipoPaciente;
-
-    @ManyToOne
-    @JoinColumn(name = "sede_id")
-    private Sede sede;
 
     @OneToOne(mappedBy = "cita", cascade = CascadeType.ALL)
     private Pago pago;

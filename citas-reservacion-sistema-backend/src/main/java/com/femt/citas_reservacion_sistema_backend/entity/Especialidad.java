@@ -20,9 +20,7 @@ public class Especialidad {
     @Column(unique = true)
     private String nombre;
 
-    @OneToMany(mappedBy = "especialidad")
-    private List<MedicoEspecialidad> medicos;
-
-    @OneToMany(mappedBy = "especialidad")
-    private List<Cita> citas;
+    @ManyToOne
+    @JoinColumn(name = "medico_id")
+    private Medico medico;
 }

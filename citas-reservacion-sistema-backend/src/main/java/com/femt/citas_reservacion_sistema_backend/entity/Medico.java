@@ -21,14 +21,16 @@ public class Medico {
     private String apellido;
     private String correo;
     private String celular;
-    private Boolean activo = true;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sede_id")
     private Sede sede;
 
     @OneToMany(mappedBy = "medico")
-    private List<MedicoEspecialidad> especialidades;
+    private List<Especialidad> especialidad;
+
+    @OneToOne(mappedBy = "medico", cascade = CascadeType.ALL)
+    private FechaHora fechaHora;
 
     @OneToMany(mappedBy = "medico")
     private List<Cita> citas;
