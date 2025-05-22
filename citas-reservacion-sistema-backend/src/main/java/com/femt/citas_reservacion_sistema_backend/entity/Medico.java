@@ -17,8 +17,8 @@ public class Medico {
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nombres;
-    private String apellidos;
+    private String nombre;
+    private String apellido;
     private String correo;
     private String celular;
     private Boolean activo = true;
