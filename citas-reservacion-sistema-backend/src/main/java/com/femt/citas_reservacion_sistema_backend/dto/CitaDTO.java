@@ -17,12 +17,13 @@ public class CitaDTO {
     private LocalTime hora;
     private BigDecimal monto;
     private String estado;
-    private String medicoNombre;
-    private String especialidadNombre;
-    private String especialidadId;
-    private String tipoPacienteNombre;
-    private String medicoId;
-    private String usuarioId;
-    private String tipoPacienteId;
-    private String fechaHoraId;
+    private String tipoPaciente;
+    // Datos del médico asignado
+    private String nombreMedico;
+    private String apellidoMedico;
+    // Especialidad seleccionada para esta cita
+    private String especialidad;
+    // Nombre completo del paciente
+    private String nombrePaciente;
+    private String apellidoPaciente;
 }

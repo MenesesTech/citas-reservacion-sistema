@@ -1,24 +1,30 @@
 package com.femt.citas_reservacion_sistema_backend.service;
 
-import com.femt.citas_reservacion_sistema_backend.dto.CitaDTO;
-
 import java.util.List;
 
+import com.femt.citas_reservacion_sistema_backend.dto.CitaDTO;
+
 public interface CitaService {
-
-    void guardarCita(Long idMedico, Long idPaciente, Long idTipoPaciente, Long idFechaHora, Long idEspecialidad)
-            throws Exception;
-
-    void eliminarCita(Long id) throws Exception;
-
-    void actualizarCita(Long id, Long idMedico, Long idPaciente, Long idTipoPaciente, Long idFechaHora)
-            throws Exception;
 
     List<CitaDTO> listaCitas() throws Exception;
 
     CitaDTO obtenerCitaPorId(Long id) throws Exception;
 
-    List<CitaDTO> obtenerCitasPorMedicoId(Long medicoId) throws Exception;
+    void guardarCita(CitaDTO citaRequest) throws Exception;
 
-    List<CitaDTO> obtenerCitasPorPacienteId(Long pacienteId) throws Exception;
+    void eliminarCita(Long id) throws Exception;
+
+    void actualizarCita(CitaDTO citaRequest) throws Exception;
+
+    List<CitaDTO> obtenerCitasPorMedico(Long medicoId) throws Exception;
+
+    List<CitaDTO> obtenerCitasPorPaciente(Long pacienteId) throws Exception;
+
+    List<CitaDTO> obtenerCitasPorSede(Long sedeId) throws Exception;
+
+    List<CitaDTO> obtenerCitasPorEspecialidad(Long especialidadId) throws Exception;
+
+    List<CitaDTO> obtenerCitasPorFecha(String fecha) throws Exception;
+
+    List<CitaDTO> obtenerCitasPorEstado(String estado) throws Exception;
 }

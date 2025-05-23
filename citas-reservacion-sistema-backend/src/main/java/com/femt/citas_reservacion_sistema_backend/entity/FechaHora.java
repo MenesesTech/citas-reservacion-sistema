@@ -17,10 +17,15 @@ public class FechaHora {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    // Fecha disponible del medico
     private LocalDate fecha;
+    // Horario disponible del medico
     private LocalTime hora;
+    // Estado de disponibilidad
     private Boolean disponible = true;
-
+    /**
+     * Relación uno-a-uno con el médico al que pertenece la disponibilidad
+     */
     @OneToOne
     @JoinColumn(name = "medico_id")
     private Medico medico;

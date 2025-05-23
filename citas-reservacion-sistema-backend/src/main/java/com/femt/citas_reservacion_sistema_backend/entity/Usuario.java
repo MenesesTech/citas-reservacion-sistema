@@ -30,7 +30,10 @@ public class Usuario {
     private String provincia;
     private String distrito;
     private String direccion;
-
+    /**
+     * Relación uno-a-muchos con la entidad Cita
+     * Un usuario puede tener múltiples citas médicas registradas
+     */
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Cita> citas;
 }

@@ -16,5 +16,7 @@ public interface MedicoService {
 
     void actualizarMedico(MedicoDTO medicoRequest) throws Exception;
 
-    List<MedicoDTO> obtenerMedicosPorEspecialidad(Long especialidadId);
+    List<String> obtenerEspecialidadesMedico(Long medicoId);
+
+    Optional<MedicoDTO> obtenerMedicoConEspecialidades(Long medicoId) throws Exception;
 }

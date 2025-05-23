@@ -4,15 +4,24 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class UsuarioDTO {
     private Long id;
     private String dni;
+    private String password;
     private String nombres;
     private String apellidoPaterno;
     private String apellidoMaterno;
-    private String email;
+    private LocalDate fechaNacimiento;
     private String celular;
+    private String email;
+    private String genero;
+    private String departamento;
+    private String provincia;
+    private String distrito;
+    private String direccion;
 }

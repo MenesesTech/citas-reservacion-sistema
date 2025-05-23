@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,9 +17,15 @@ public class Especialidad {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // Nombre de la especialidad
     @Column(unique = false)
     private String nombre;
 
-    @ManyToMany(mappedBy = "especialidades")
-    private Medico medico;
+    /**
+     * Relación uno-a-muchos con la entidad MedicoEspecialidad.
+     * Esta tabla intermedia permite asociar múltiples médicos
+     * con múltiples especialidades.
+     */
+    @OneToMany(mappedBy = "especialidad", cascade = CascadeType.ALL)
+    private List<MedicoEspecialidad> medicoEspecialidad;
 }
