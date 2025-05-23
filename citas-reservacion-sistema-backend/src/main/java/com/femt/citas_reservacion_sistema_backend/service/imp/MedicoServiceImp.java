@@ -58,16 +58,16 @@ public class MedicoServiceImp implements MedicoService {
 
     @Override
     public Optional<MedicoDTO> obtenerMedicoConEspecialidades(Long medicoId) throws Exception {
-        var optionalMedico = medicoRepository.findById(medicoId);
-        if (optionalMedico.isEmpty())
-            return Optional.empty();
+//        var optionalMedico = medicoRepository.findById(medicoId);
+//        if (optionalMedico.isEmpty())
+//            return Optional.empty();
+//
+//        var medico = optionalMedico.get();
+//        var especialidades = medicoEspecialidadRepository.findEspecialidadesPorMedico(medicoId);
+//
+//        MedicoDTO dto = medicoMapper.toDTO(medico);
+//        dto.setEspecialidades(especialidades);
 
-        var medico = optionalMedico.get();
-        var especialidades = medicoEspecialidadRepository.findEspecialidadesPorMedico(medicoId);
-
-        MedicoDTO dto = medicoMapper.toDTO(medico);
-        dto.setEspecialidades(especialidades);
-
-        return Optional.of(dto);
+        return Optional.empty();//Optional.of(dto)
     }
 }
