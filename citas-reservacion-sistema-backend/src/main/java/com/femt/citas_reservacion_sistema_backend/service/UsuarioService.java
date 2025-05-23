@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface UsuarioService {
     List<UsuarioDTO> listaUsuarios() throws Exception;
-    Optional<UsuarioDTO> obtenerUsuarioPorId(Long id) throws Exception;
+    Optional<UsuarioDTO> obtenerUsuarioPorId(Long idUser) throws Exception;
     UsuarioDTO guardarUsuario(UsuarioDTO usuarioRequest) throws Exception;
     void eliminarUsuario(Long id) throws Exception;
     UsuarioDTO actualizarUsuario(UsuarioDTO usuarioRequest) throws Exception;

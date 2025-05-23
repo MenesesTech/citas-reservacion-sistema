@@ -39,18 +39,17 @@ public class Medico {
 
     /**
      * Lista de especialidades que posee el medico
-     * Relación muchos-a-muchos con la entidad Especialidades
+     * Relación uno-a-muchos con la entidad Especialidades
      */
-    @ManyToMany
-    @JoinTable(name = "medico_especialidad", joinColumns = @JoinColumn(name = "medico_id"), inverseJoinColumns = @JoinColumn(name = "especialidad_id"))
-    private List<Especialidad> especialidades;
+    @OneToMany(mappedBy = "medico", cascade = CascadeType.ALL)
+    private List<MedicoEspecialidad> medicoEspecialidades;
 
     /**
      * Disponibilidad del médico
-     * Relación de uno-a-uno con la entidad FechaHora
+     * Relación de uno-a-muchos con la entidad FechaHora
      */
-    @OneToOne(mappedBy = "medico", cascade = CascadeType.ALL)
-    private FechaHora fechaHora;
+    @OneToMany(mappedBy = "medico", cascade = CascadeType.ALL)
+    private List<FechaHora> horariosDisponibles;
 
     /**
      * Lista de citas asociadas a este medico

@@ -24,9 +24,9 @@ public class FechaHora {
     // Estado de disponibilidad
     private Boolean disponible = true;
     /**
-     * Relación uno-a-uno con el médico al que pertenece la disponibilidad
+     * Relación muchos-a-uno para permitir múltiples horarios por médico
      */
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "medico_id")
     private Medico medico;
 }

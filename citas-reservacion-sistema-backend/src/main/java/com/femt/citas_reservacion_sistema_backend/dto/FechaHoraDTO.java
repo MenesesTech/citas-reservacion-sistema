@@ -15,7 +15,6 @@ public class FechaHoraDTO {
     private LocalDate fecha;
     private LocalTime hora;
     private Boolean disponible;
-    // Informacion del medico
     private String nombreMedico;
     private String apellidoMedico;
 }

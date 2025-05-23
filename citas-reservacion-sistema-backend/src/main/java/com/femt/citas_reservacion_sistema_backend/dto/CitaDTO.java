@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CitaDTO {
-    private Long id;
+    private Long id = null;
     private LocalDate fecha;
     private LocalTime hora;
     private BigDecimal monto;

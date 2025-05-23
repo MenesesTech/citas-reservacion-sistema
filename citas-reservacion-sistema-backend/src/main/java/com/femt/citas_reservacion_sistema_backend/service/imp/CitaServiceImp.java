@@ -1,12 +1,18 @@
 package com.femt.citas_reservacion_sistema_backend.service.imp;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import com.femt.citas_reservacion_sistema_backend.dto.CitaDTO;
+import com.femt.citas_reservacion_sistema_backend.entity.Cita;
+import com.femt.citas_reservacion_sistema_backend.entity.EstadoDeCita;
 import com.femt.citas_reservacion_sistema_backend.mapper.CitaMapper;
 import com.femt.citas_reservacion_sistema_backend.repository.CitaRepository;
 import com.femt.citas_reservacion_sistema_backend.service.CitaService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CitaServiceImp implements CitaService {
 
     private final CitaRepository citaRepository;
@@ -24,25 +30,34 @@ public class CitaServiceImp implements CitaService {
     }
 
     @Override
-    public CitaDTO obtenerCitaPorId(Long id) throws Exception {
+    public Optional<CitaDTO> obtenerCitaPorId(Long id) throws Exception {
         return this.citaRepository.findById(id)
-                .map(citaMapper::toDTO)
-                .orElseThrow(() -> new Exception("Cita no encontrada"));
+                .map(citaMapper::toDTO);
     }
 
     @Override
-    public void guardarCita(CitaDTO citaRequest) throws Exception {
-        this.citaRepository.save(citaMapper.toEntity(citaRequest));
+    public CitaDTO guardarCita(CitaDTO citaRequest) throws Exception {
+        var cita = citaMapper.toEntity(citaRequest);
+        var citaGuardada = this.citaRepository.save(cita);
+        return citaMapper.toDTO(citaGuardada);
     }
 
     @Override
     public void eliminarCita(Long id) throws Exception {
+        if (!citaRepository.existsById(id)) {
+            throw new Exception("Cita no encontrada con ID: " + id);
+        }
         this.citaRepository.deleteById(id);
     }
 
     @Override
-    public void actualizarCita(CitaDTO citaRequest) throws Exception {
-        this.citaRepository.save(citaMapper.toEntity(citaRequest));
+    public CitaDTO actualizarCita(CitaDTO citaRequest) throws Exception {
+        if (citaRequest.getId() == null || !citaRepository.existsById(citaRequest.getId())) {
+            throw new Exception("Cita no encontrada para actualizar");
+        }
+        var cita = citaMapper.toEntity(citaRequest);
+        var citaActualizada = this.citaRepository.save(cita);
+        return citaMapper.toDTO(citaActualizada);
     }
 
     @Override
@@ -52,8 +67,8 @@ public class CitaServiceImp implements CitaService {
     }
 
     @Override
-    public List<CitaDTO> obtenerCitasPorPaciente(Long pacienteId) throws Exception {
-        return this.citaRepository.findByPacienteId(pacienteId).stream()
+    public List<CitaDTO> obtenerCitasPorUsuario(Long usuarioId) throws Exception {
+        return this.citaRepository.findByUsuarioId(usuarioId).stream()
                 .map(citaMapper::toDTO).toList();
     }
 
@@ -70,15 +85,14 @@ public class CitaServiceImp implements CitaService {
     }
 
     @Override
-    public List<CitaDTO> obtenerCitasPorFecha(String fecha) throws Exception {
+    public List<CitaDTO> obtenerCitasPorFecha(LocalDate fecha) throws Exception {
         return this.citaRepository.findByFecha(fecha).stream()
                 .map(citaMapper::toDTO).toList();
     }
 
     @Override
-    public List<CitaDTO> obtenerCitasPorEstado(String estado) throws Exception {
+    public List<CitaDTO> obtenerCitasPorEstado(EstadoDeCita estado) throws Exception {
         return this.citaRepository.findByEstado(estado).stream()
                 .map(citaMapper::toDTO).toList();
     }
-
 }

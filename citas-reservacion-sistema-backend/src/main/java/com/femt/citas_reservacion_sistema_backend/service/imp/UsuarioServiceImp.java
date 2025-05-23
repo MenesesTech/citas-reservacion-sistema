@@ -28,8 +28,8 @@ public class UsuarioServiceImp implements UsuarioService {
     }
 
     @Override
-    public Optional<UsuarioDTO> obtenerUsuarioPorId(Long id) throws Exception {
-        return this.usuarioRepository.findById(id)
+    public Optional<UsuarioDTO> obtenerUsuarioPorId(Long idUser) throws Exception {
+        return this.usuarioRepository.findById(idUser)
                 .map(usuarioMapper::toDTO);
     }
 

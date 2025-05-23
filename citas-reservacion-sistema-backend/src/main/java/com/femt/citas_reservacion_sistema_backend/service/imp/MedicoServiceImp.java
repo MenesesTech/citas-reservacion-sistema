@@ -43,11 +43,17 @@ public class MedicoServiceImp implements MedicoService {
 
     @Override
     public void eliminarMedico(Long id) throws Exception {
+        if (!medicoRepository.existsById(id)) {
+            throw new Exception("Médico no encontrado con ID: " + id);
+        }
         this.medicoRepository.deleteById(id);
     }
 
     @Override
     public void actualizarMedico(MedicoDTO medicoRequest) throws Exception {
+        if (medicoRequest.getId() == null || !medicoRepository.existsById(medicoRequest.getId())) {
+            throw new Exception("Médico no encontrado para actualizar");
+        }
         this.medicoRepository.save(medicoMapper.toEntity(medicoRequest));
     }
 
@@ -58,16 +64,16 @@ public class MedicoServiceImp implements MedicoService {
 
     @Override
     public Optional<MedicoDTO> obtenerMedicoConEspecialidades(Long medicoId) throws Exception {
-//        var optionalMedico = medicoRepository.findById(medicoId);
-//        if (optionalMedico.isEmpty())
-//            return Optional.empty();
-//
-//        var medico = optionalMedico.get();
-//        var especialidades = medicoEspecialidadRepository.findEspecialidadesPorMedico(medicoId);
-//
-//        MedicoDTO dto = medicoMapper.toDTO(medico);
-//        dto.setEspecialidades(especialidades);
+        var optionalMedico = medicoRepository.findById(medicoId);
+        if (optionalMedico.isEmpty())
+            return Optional.empty();
 
-        return Optional.empty();//Optional.of(dto)
+        var medico = optionalMedico.get();
+        var especialidades = medicoEspecialidadRepository.findEspecialidadesPorMedico(medicoId);
+
+        MedicoDTO dto = medicoMapper.toDTO(medico);
+        dto.setEspecialidades(especialidades);
+
+        return Optional.of(dto);
     }
 }
