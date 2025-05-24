@@ -1,10 +1,22 @@
-import { StrictMode } from 'react'
+import { HeaderHome } from './Components/HeaderMain.tsx'
+import { FooterHome } from './Components/FooterMain.tsx'
 import { createRoot } from 'react-dom/client'
-import './index.css'
 import App from './App.tsx'
+import './index.css'
+
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
+
+    <>
+    <header>
+        <HeaderHome />
+    </header>
+    <main className='tw-img-backgroundmain'>
+        <App />
+    </main>
+    <footer>
+        <FooterHome />
+    </footer>
+    </>
+
 )

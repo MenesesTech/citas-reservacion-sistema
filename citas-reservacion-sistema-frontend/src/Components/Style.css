@@ -1,0 +1,85 @@
+.tw-text-small {
+    color: #fff;
+    margin: 0 5% ;
+    font-family: monospace ;
+    font-weight: lighter;
+    font-size: 13px;
+}
+
+.tw-text-medium {
+    color: #fff;
+    margin: 0 5% ;
+    font-family: monospace ;
+    font-weight: bold;
+    font-size: 20px;
+    
+
+}
+
+.tw-text-medium-header {
+    color: hsl(24, 100%, 55%);
+    font-family: monospace ;
+    font-weight: bold;
+    font-size: 25px;
+    margin: auto;
+}
+
+.tw-img-logo {
+    margin: 5%;
+    max-width: 250px;
+}
+
+.tw-img-logo-sime {
+    margin: 5%;
+    
+}
+
+.tw-svg-logo-sime {
+    margin-top: 6px;
+    justify-content: center;
+    max-width: 80px;
+    max-height: 80px;
+}
+
+
+/*Cabecera Home*/
+.tw-header-main {
+    background: hsl(0, 0%, 100%);
+    margin-left: 1%;
+    margin-right: 1%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.tw-line {
+    background: hsl(24, 100%, 55%);
+    display: flex;
+    justify-content: space-between;
+    height: 8px;
+}
+
+/*Pie de pagina Home*/
+.tw-footer-main {
+    background: hsl(0, 4%, 5%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.tw-footer-main-internal {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.tw-footer-main-container {
+    margin: 2%;
+    width: 250px;
+}
+
+.tw-footer-lower-container {
+    display: flex;
+    justify-content: center;
+    margin: 2%;
+    text-align: center;
+}
