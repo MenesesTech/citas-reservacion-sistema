@@ -1,5 +1,8 @@
 package com.femt.citas_reservacion_sistema_backend.service.imp;
 
+import com.femt.citas_reservacion_sistema_backend.dto.EspecialidadRequestDTO;
+import com.femt.citas_reservacion_sistema_backend.dto.EspecialidadResponseDTO;
+import com.femt.citas_reservacion_sistema_backend.entity.Especialidad;
 import com.femt.citas_reservacion_sistema_backend.mapper.EspecialidadMapper;
 import com.femt.citas_reservacion_sistema_backend.repository.EspecialidadRepository;
 import com.femt.citas_reservacion_sistema_backend.service.EspecialidadService;
@@ -7,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class EspecialidadServiceImp implements EspecialidadService {
@@ -21,29 +23,36 @@ public class EspecialidadServiceImp implements EspecialidadService {
     }
 
     @Override
-    public List<EspecialidadDTO> listarEspecialidades() throws Exception {
-        return this.especialidadRepository.findAll().stream()
-                .map(especialidadMapper::toDTO).collect(Collectors.toList());
+    public List<EspecialidadResponseDTO> listarEspecialidades() throws Exception {
+        return especialidadMapper.toResponseDTOList(especialidadRepository.findAll());
     }
 
     @Override
-    public Optional<EspecialidadDTO> obtenerEspecialidadPorId(Long idEspecialidad) throws Exception {
-        return this.especialidadRepository.findById(idEspecialidad)
-                .map(especialidadMapper::toDTO);
+    public Optional<EspecialidadResponseDTO> obtenerEspecialidadPorId(Long idEspecialidad) throws Exception {
+        return especialidadRepository.findById(idEspecialidad)
+                .map(especialidadMapper::toResponseDTO);
     }
 
     @Override
-    public EspecialidadDTO guardarEspecialidad(EspecialidadDTO especialidadDTO) throws Exception {
-        return especialidadMapper.toDTO(especialidadRepository.save(especialidadMapper.toEntity(especialidadDTO)));
+    public EspecialidadResponseDTO guardarEspecialidad(EspecialidadRequestDTO especialidadRequest) throws Exception {
+        Especialidad especialidad = especialidadMapper.toEntity(especialidadRequest);
+        Especialidad especialidadGuardada = especialidadRepository.save(especialidad);
+        return especialidadMapper.toResponseDTO(especialidadGuardada);
     }
 
     @Override
     public void eliminarEspecialidad(Long id) throws Exception {
-        this.especialidadRepository.deleteById(id);
+        if (!especialidadRepository.existsById(id)) {
+            throw new Exception("Especialidad no encontrada con ID: " + id);
+        }
+        especialidadRepository.deleteById(id);
     }
 
     @Override
-    public EspecialidadDTO actualizarEspecialidad(EspecialidadDTO especialidadDTO) throws Exception {
-        return especialidadMapper.toDTO(especialidadRepository.save(especialidadMapper.toEntity(especialidadDTO)));
+    public EspecialidadResponseDTO actualizarEspecialidad(EspecialidadRequestDTO especialidadRequest) throws Exception {
+        // Buscar la especialidad existente (necesitaríamos el ID en el DTO)
+        Especialidad especialidad = especialidadMapper.toEntity(especialidadRequest);
+        Especialidad especialidadActualizada = especialidadRepository.save(especialidad);
+        return especialidadMapper.toResponseDTO(especialidadActualizada);
     }
 }

@@ -8,4 +8,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PagoResponseDTO {
+    private String proveedor_pasarela;
 }
