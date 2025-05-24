@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MedicoRequestDTO {
+    private Long id;
     private String nombre;
     private String apellido;
     private String correo;

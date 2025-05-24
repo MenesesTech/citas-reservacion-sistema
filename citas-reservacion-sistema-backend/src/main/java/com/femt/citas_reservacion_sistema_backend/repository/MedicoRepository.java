@@ -12,7 +12,6 @@ import java.util.Optional;
 @Repository
 
 public interface MedicoRepository extends JpaRepository<Medico, Long> {
-    @Query(value = "SELECT nombre FROM medicos AS m INNER JOIN especialidades AS esp ON m.especialidad_id = esp.id WHERE m.id = :id" +
-            "    ON m.especialidad_id = esp.id WHERE m.id = :idMedico", nativeQuery = true)
-    Optional<Medico> findById(@Param("idMedico") Long idMedico);
+    @Query(value = "SELECT * FROM id FROM medicos WHERE id = :id", nativeQuery = true)
+    Optional<Medico> findById(@Param("id") Long id);
 }

@@ -1,5 +1,7 @@
 package com.femt.citas_reservacion_sistema_backend.controller;
 
+import com.femt.citas_reservacion_sistema_backend.dto.MedicoRequestDTO;
+import com.femt.citas_reservacion_sistema_backend.dto.MedicoResponseDTO;
 import com.femt.citas_reservacion_sistema_backend.service.MedicoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,11 +22,11 @@ public class MedicoController {
     private MedicoService medicoService;
 
     @Operation(summary = "Listar todos los médicos")
-    @GetMapping("/all-medicos")
-    public ResponseEntity<List<MedicoDTO>> listarMedicos() {
+    @GetMapping
+    public ResponseEntity<List<MedicoResponseDTO>> listarMedicos() {
         try {
-            List<MedicoDTO> medicos = medicoService.listaMedicos();
-            if (medicos.isEmpty()){
+            List<MedicoResponseDTO> medicos = medicoService.listaMedicos();
+            if (medicos.isEmpty()) {
                 return ResponseEntity.noContent().build();
             }
             return ResponseEntity.ok(medicos);
@@ -35,10 +37,10 @@ public class MedicoController {
     }
 
     @Operation(summary = "Obtener un médico por ID")
-    @GetMapping("/find/{idMedico}")
-    public ResponseEntity<?> obtenerMedicoPorId(@PathVariable Long idMedico) {
+    @GetMapping("/{id}")
+    public ResponseEntity<?> obtenerMedicoPorId(@PathVariable Long id) {
         try {
-            return medicoService.obtenerMedicoPorId(idMedico)
+            return medicoService.obtenerMedicoPorId(id)
                     .map(ResponseEntity::ok)
                     .orElse(ResponseEntity.notFound().build());
         } catch (Exception e) {
@@ -47,38 +49,36 @@ public class MedicoController {
     }
 
     @Operation(summary = "Registrar un nuevo médico")
-    @PostMapping("/create")
-    public ResponseEntity<?> crearMedico(@RequestBody MedicoDTO medicoDTO) {
+    @PostMapping
+    public ResponseEntity<?> crearMedico(@RequestBody MedicoRequestDTO medicoDTO) {
         if (medicoDTO == null) {
             return ResponseEntity.badRequest().body("Error: la solicitud está vacía");
-        } else {
-            try {
-                medicoService.guardarMedico(medicoDTO);
-                return ResponseEntity.ok("Médico registrado correctamente");
-            } catch (Exception e) {
-                return ResponseEntity.badRequest().body("Error al crear médico: " + e.getMessage());
-            }
+        }
+        try {
+            medicoService.guardarMedico(medicoDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Médico registrado correctamente");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error al crear médico: " + e.getMessage());
         }
     }
 
     @Operation(summary = "Actualizar un médico existente")
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> actualizarMedico(@PathVariable Long id, @RequestBody MedicoDTO medicoDTO) {
+    @PutMapping("/{id}")
+    public ResponseEntity<?> actualizarMedico(@PathVariable Long id, @RequestBody MedicoRequestDTO medicoDTO) {
         if (medicoDTO == null) {
             return ResponseEntity.badRequest().body("Error: la solicitud está vacía");
-        } else {
-            try {
-                medicoDTO.setId(id);
-                medicoService.actualizarMedico(medicoDTO);
-                return ResponseEntity.ok("Médico actualizado correctamente");
-            } catch (Exception e) {
-                return ResponseEntity.badRequest().body("Error al actualizar médico: " + e.getMessage());
-            }
+        }
+        try {
+            medicoDTO.setId(id);
+            medicoService.actualizarMedico(medicoDTO);
+            return ResponseEntity.ok("Médico actualizado correctamente");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error al actualizar médico: " + e.getMessage());
         }
     }
 
     @Operation(summary = "Eliminar un médico por ID")
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminarMedico(@PathVariable Long id) {
         try {
             medicoService.eliminarMedico(id);
