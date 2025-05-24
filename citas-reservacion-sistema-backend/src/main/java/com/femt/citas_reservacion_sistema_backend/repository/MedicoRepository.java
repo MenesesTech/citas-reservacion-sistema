@@ -11,10 +11,5 @@ import java.util.Optional;
 
 @Repository
 public interface MedicoRepository extends JpaRepository<Medico, Long> {
-
     List<Medico> findByEspecialidadId(Long especialidadId);
-
-    List<Medico> findBySedeId(Long sedeId);
-
-    Optional<Medico> findByCorreo(String correo);
 }

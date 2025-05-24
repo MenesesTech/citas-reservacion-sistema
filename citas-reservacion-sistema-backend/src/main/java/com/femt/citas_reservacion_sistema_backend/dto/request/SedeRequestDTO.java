@@ -1,4 +1,4 @@
-package com.femt.citas_reservacion_sistema_backend.dto;
+package com.femt.citas_reservacion_sistema_backend.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PagoResponseDTO {
-    private String proveedor_pasarela;
+public class SedeRequestDTO {
+    private String nombre;
 }

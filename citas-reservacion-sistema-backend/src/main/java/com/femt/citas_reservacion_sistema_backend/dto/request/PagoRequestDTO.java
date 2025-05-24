@@ -1,4 +1,4 @@
-package com.femt.citas_reservacion_sistema_backend.dto;
+package com.femt.citas_reservacion_sistema_backend.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class PagoRequestDTO {
     private String idTransaccionPasarela;
-    private String proveedor_pasarela;
+    private String proveedorPasarela;
     private Long citaId;
     private LocalDateTime fechaPago = LocalDateTime.now();
 }

@@ -1,7 +1,7 @@
 package com.femt.citas_reservacion_sistema_backend.service.imp;
 
-import com.femt.citas_reservacion_sistema_backend.dto.PagoRequestDTO;
-import com.femt.citas_reservacion_sistema_backend.dto.PagoResponseDTO;
+import com.femt.citas_reservacion_sistema_backend.dto.request.PagoRequestDTO;
+import com.femt.citas_reservacion_sistema_backend.dto.response.PagoResponseDTO;
 import com.femt.citas_reservacion_sistema_backend.entity.Pago;
 import com.femt.citas_reservacion_sistema_backend.mapper.PagoMapper;
 import com.femt.citas_reservacion_sistema_backend.repository.CitaRepository;
@@ -62,7 +62,7 @@ public class PagoServiceImp implements PagoService {
                 .orElseThrow(() -> new RuntimeException("Pago no encontrado"));
 
         pago.setIdTransaccionPasarela(pagoRequest.getIdTransaccionPasarela());
-        pago.setProveedor_pasarela(pagoRequest.getProveedor_pasarela());
+        pago.setProveedor_pasarela(pagoRequest.getProveedorPasarela());
 
         Pago pagoActualizado = pagoRepository.save(pago);
         return pagoMapper.toResponseDTO(pagoActualizado);

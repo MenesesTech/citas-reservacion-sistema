@@ -11,16 +11,4 @@ import java.util.List;
 
 @Repository
 public interface CitaRepository extends JpaRepository<Cita, Long> {
-
-    List<Cita> findByMedicoId(Long medicoId);
-
-    List<Cita> findByUsuarioId(Long usuarioId);
-
-    @Query("SELECT c FROM Cita c WHERE c.medico.sede.id = :sedeId")
-    List<Cita> findBySedeId(@Param("sedeId") Long sedeId);
-
-    List<Cita> findByEstado(String estado);
-
-    @Query("SELECT c FROM Cita c JOIN c.medico m JOIN m.horariosDisponibles h WHERE h.fecha = :fecha")
-    List<Cita> findByFecha(@Param("fecha") LocalDate fecha);
 }

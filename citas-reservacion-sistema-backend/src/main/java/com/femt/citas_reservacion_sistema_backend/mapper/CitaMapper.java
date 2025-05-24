@@ -1,38 +1,63 @@
 package com.femt.citas_reservacion_sistema_backend.mapper;
 
-import com.femt.citas_reservacion_sistema_backend.dto.CitaRequestDTO;
-import com.femt.citas_reservacion_sistema_backend.dto.CitaResponseDTO;
+import com.femt.citas_reservacion_sistema_backend.dto.request.CitaRequestDTO;
+import com.femt.citas_reservacion_sistema_backend.dto.response.CitaResponseDTO;
 import com.femt.citas_reservacion_sistema_backend.entity.Cita;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.femt.citas_reservacion_sistema_backend.entity.FechaHora;
+import com.femt.citas_reservacion_sistema_backend.entity.Paciente;
+import com.femt.citas_reservacion_sistema_backend.entity.Pago;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class CitaMapper {
-    @Autowired
-    private ModelMapper modelMapper;
 
-    public CitaResponseDTO toResponseDTO(Cita cita) {
-        CitaResponseDTO responseDTO = new CitaResponseDTO();
-        responseDTO.setEspecialidadMedico(cita.getMedico().getEspecialidad().getNombre());
-        responseDTO.setNombreMedico(cita.getMedico().getNombre() + " " + cita.getMedico().getApellido());
-        responseDTO.setTipoPaciente(cita.getTipoPaciente());
-        responseDTO.setMonto(cita.getMedico().getEspecialidad().getMonto());
-        responseDTO.setEstado(cita.getEstado());
-        // Nota: fecha y hora deben obtenerse de la relación con FechaHora
-        return responseDTO;
+    public CitaResponseDTO toDTO(Cita cita) {
+        CitaResponseDTO dto = new CitaResponseDTO();
+        dto.setId(cita.getId());
+        dto.setEstado(cita.getEstado());
+
+        // FechaHora
+        FechaHora fh = cita.getFechaHora();
+        if (fh != null) {
+            dto.setFechaHoraId(fh.getId());
+            dto.setFecha(fh.getFecha().toString());
+            dto.setHora(fh.getHora().toString());
+            dto.setDisponible(fh.getDisponible());
+        }
+
+        // Paciente
+        Paciente paciente = cita.getPaciente();
+        if (paciente != null && paciente.getUsuario() != null) {
+            dto.setPacienteId(paciente.getId());
+            dto.setNombrePaciente(paciente.getUsuario().getNombre() + " " +
+                    paciente.getUsuario().getApellidoPaterno());
+            dto.setDniPaciente(paciente.getUsuario().getDni());
+        }
+
+        // Pago
+        Pago pago = cita.getPago();
+        if (pago != null) {
+            dto.setPagoId(pago.getId());
+            dto.setProveedorPasarela(pago.getProveedor_pasarela());
+            dto.setIdTransaccionPasarela(pago.getIdTransaccionPasarela());
+        }
+
+        return dto;
     }
 
-    public List<CitaResponseDTO> toResponseDTOList(List<Cita> citas) {
-        return citas.stream()
-                .map(this::toResponseDTO)
-                .collect(Collectors.toList());
-    }
+    public Cita toEntity(CitaRequestDTO dto) {
+        Cita cita = new Cita();
+        cita.setEstado(dto.getEstado());
 
-    public Cita toEntity(CitaRequestDTO requestDTO) {
-        return modelMapper.map(requestDTO, Cita.class);
+        // Relacionar por ID solamente. El controlador o servicio debe cargar las entidades completas.
+        FechaHora fechaHora = new FechaHora();
+        fechaHora.setId(dto.getFechaHoraId());
+        cita.setFechaHora(fechaHora);
+
+        Paciente paciente = new Paciente();
+        paciente.setId(dto.getPacienteId());
+        cita.setPaciente(paciente);
+
+        return cita;
     }
 }

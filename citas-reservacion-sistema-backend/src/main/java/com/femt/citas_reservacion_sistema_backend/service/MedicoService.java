@@ -1,23 +1,15 @@
 package com.femt.citas_reservacion_sistema_backend.service;
 
-import com.femt.citas_reservacion_sistema_backend.dto.MedicoRequestDTO;
-import com.femt.citas_reservacion_sistema_backend.dto.MedicoResponseDTO;
-import com.femt.citas_reservacion_sistema_backend.dto.UsuarioRequestDTO;
-import com.femt.citas_reservacion_sistema_backend.dto.UsuarioResponseDTO;
-import com.femt.citas_reservacion_sistema_backend.entity.Medico;
+import com.femt.citas_reservacion_sistema_backend.dto.request.MedicoRequestDTO;
+import com.femt.citas_reservacion_sistema_backend.dto.response.MedicoResponseDTO;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface MedicoService {
-
-    List<MedicoResponseDTO> listaMedicos() throws Exception;
-
+    List<MedicoResponseDTO> listarMedicos() throws Exception;
     Optional<MedicoResponseDTO> obtenerMedicoPorId(Long id) throws Exception;
-
-    void guardarMedico(MedicoRequestDTO medicoRequest) throws Exception;
-
+    void registrarMedico(MedicoRequestDTO medicoRequestDTO) throws Exception;
     void eliminarMedico(Long id) throws Exception;
-
-    Medico actualizarMedico(MedicoRequestDTO medicoRequest) throws Exception;
+    MedicoResponseDTO actualizarMedico(Long id, MedicoRequestDTO medicoRequestDTO) throws Exception;
 }

@@ -1,7 +1,7 @@
 package com.femt.citas_reservacion_sistema_backend.service;
 
-import com.femt.citas_reservacion_sistema_backend.dto.PagoRequestDTO;
-import com.femt.citas_reservacion_sistema_backend.dto.PagoResponseDTO;
+import com.femt.citas_reservacion_sistema_backend.dto.request.PagoRequestDTO;
+import com.femt.citas_reservacion_sistema_backend.dto.response.PagoResponseDTO;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,6 +1,7 @@
 package com.femt.citas_reservacion_sistema_backend.mapper;
 
-import com.femt.citas_reservacion_sistema_backend.dto.SedeDTO;
+import com.femt.citas_reservacion_sistema_backend.dto.request.SedeRequestDTO;
+import com.femt.citas_reservacion_sistema_backend.dto.response.SedeResponseDTO;
 import com.femt.citas_reservacion_sistema_backend.entity.Sede;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,17 +15,16 @@ public class SedeMapper {
     @Autowired
     private ModelMapper modelMapper;
 
-    public SedeDTO toDTo(Sede sede){
-        return modelMapper.map(sede, SedeDTO.class);
+    public SedeResponseDTO toResponseDTO(Sede sede){
+        return modelMapper.map(sede, SedeResponseDTO.class);
     }
-
-    public List<SedeDTO> toDoList(List<Sede> sedes){
+    public List<SedeResponseDTO> toResponseList(List<Sede> sedes){
         return sedes.stream()
-                .map(this::toDTo)
+                .map(this::toResponseDTO)
                 .collect(Collectors.toList());
     }
 
-    public Sede toEntity(SedeDTO sedeDTO){
-        return modelMapper.map(sedeDTO, Sede.class);
+    public Sede toEntity(SedeRequestDTO dto){
+        return modelMapper.map(dto, Sede.class);
     }
 }

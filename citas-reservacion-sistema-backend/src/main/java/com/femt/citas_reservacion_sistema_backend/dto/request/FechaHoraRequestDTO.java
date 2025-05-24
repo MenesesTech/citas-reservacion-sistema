@@ -1,4 +1,4 @@
-package com.femt.citas_reservacion_sistema_backend.dto;
+package com.femt.citas_reservacion_sistema_backend.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,12 +10,9 @@ import java.time.LocalTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CitaResponseDTO {
-    private String especialidadMedico;
-    private String nombreMedico;
-    private String tipoPaciente;
+public class FechaHoraRequestDTO {
     private LocalDate fecha;
     private LocalTime hora;
-    private double monto;
-    private String estado;
+    private Boolean disponible;
+    private Long medicoId;
 }

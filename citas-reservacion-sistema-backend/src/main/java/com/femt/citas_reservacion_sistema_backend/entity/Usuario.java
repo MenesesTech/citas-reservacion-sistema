@@ -1,39 +1,48 @@
 package com.femt.citas_reservacion_sistema_backend.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import lombok.*;
 import java.time.LocalDate;
-import java.util.List;
 
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "usuarios")
+@Table(name = "usuario")
 public class Usuario {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, unique = true, length = 15)
     private String dni;
+
+    @Column(nullable = false)
     private String password;
-    private String nombres;
+
+    private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
+
     private LocalDate fechaNacimiento;
-    private String celular;
+    private String telefono;
+
+    @Column(nullable = false, unique = true)
     private String email;
+
     private String genero;
     private String departamento;
     private String provincia;
     private String distrito;
     private String direccion;
-    /**
-     * Relación uno-a-muchos con la entidad Cita
-     * Un usuario puede tener múltiples citas médicas registradas
-     */
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Cita> citas;
+
+    private LocalDate created = LocalDate.now();
+
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Paciente paciente;
+
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Medico medico;
 }
