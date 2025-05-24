@@ -1,10 +1,10 @@
 package com.femt.citas_reservacion_sistema_backend.controller;
 
-import com.femt.citas_reservacion_sistema_backend.dto.UsuarioDTO;
+import com.femt.citas_reservacion_sistema_backend.dto.UsuarioRequestDTO;
+import com.femt.citas_reservacion_sistema_backend.dto.UsuarioResponseDTO;
 import com.femt.citas_reservacion_sistema_backend.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,47 +14,37 @@ import java.util.List;
 @Tag(name = "Usuarios", description = "Operaciones relacionadas con usuarios")
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/api/users")
 public class UserController {
 
-    @Autowired
-    private UsuarioService userService;
+    private final UsuarioService userService;
+
+    public UserController(UsuarioService userService) {
+        this.userService = userService;
+    }
 
     @Operation(summary = "Listar todos los usuarios")
-    @GetMapping("/all-usuarios")
-    public ResponseEntity<List<UsuarioDTO>> listarUsuarios(){
-        try{
-            List<UsuarioDTO> usuarios = userService.listaUsuarios();
-            if(usuarios.isEmpty()){
-                return ResponseEntity.noContent().build();
-            }
-            return ResponseEntity.ok(usuarios);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+    @GetMapping
+    public ResponseEntity<List<UsuarioResponseDTO>> listarUsuarios() throws Exception{
+        return ResponseEntity.ok(userService.listaUsuarios());
     }
 
     @Operation(summary = "Buscar usuario por Id")
-    @GetMapping("/find/{idUser}")
-    public ResponseEntity<?> obtenerUsuarioPorId(@PathVariable Long idUser) {
-        try {
-            return userService.obtenerUsuarioPorId(idUser)
-                    .map(ResponseEntity::ok)
-                    .orElse(ResponseEntity.notFound().build());
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
-        }
+    @GetMapping("/{id}")
+    public ResponseEntity<UsuarioResponseDTO> obtenerUsuarioPorId(@PathVariable Long id) throws Exception{
+        return userService.obtenerUsuarioPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @Operation(summary = "Crear un usuario")
-    @PostMapping("/create")
-    public ResponseEntity<?> crearUsuario(@RequestBody UsuarioDTO userDTO) {
-        if (userDTO == null) {
-            return ResponseEntity.badRequest().body("Error: la solicitud está vacía");
+    @PostMapping
+    public ResponseEntity<?> crearUsuario(@RequestBody UsuarioRequestDTO userRequestDTO) {
+        if (userRequestDTO == null) {
+            return ResponseEntity.badRequest().body("Datos de usuario vacios");
         }else{
             try {
-                userService.guardarUsuario(userDTO);
+                userService.guardarUsuario(userRequestDTO);
                 return ResponseEntity.ok("El usuario se registró correctamente");
             } catch (Exception e) {
                 return ResponseEntity.badRequest().body("Error al registrar usuario: " + e.getMessage());
@@ -64,7 +54,7 @@ public class UserController {
     }
 
     @Operation(summary = "Eliminar un usuario")
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminarUsuario(@PathVariable Long id) throws Exception{
         try{
             userService.eliminarUsuario(id);
@@ -75,14 +65,14 @@ public class UserController {
     }
 
     @Operation(summary = "Actualizar un usuario")
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> actualizarUsuario(@PathVariable Long id, @RequestBody UsuarioDTO usuarioDTO){
-        if (usuarioDTO == null){
-            return ResponseEntity.badRequest().body("Error: los datos estan vacios");
+    @PutMapping("/{id}")
+    public ResponseEntity<?> actualizarUsuario(@PathVariable Long id, @RequestBody UsuarioRequestDTO usuarioRequestDTO){
+        if (usuarioRequestDTO == null){
+            return ResponseEntity.badRequest().body("Datos de usuario vacios");
         }else{
             try{
-                usuarioDTO.setId(id);
-                userService.actualizarUsuario(usuarioDTO);
+                usuarioRequestDTO.setId(id);
+                userService.actualizarUsuario(usuarioRequestDTO);
                 return ResponseEntity.ok("Usuario actualizado correctamente");
             } catch (Exception e) {
                 e.printStackTrace();

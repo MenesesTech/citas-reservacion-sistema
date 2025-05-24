@@ -1,7 +1,5 @@
 package com.femt.citas_reservacion_sistema_backend.controller;
 
-import com.femt.citas_reservacion_sistema_backend.dto.CitaDTO;
-import com.femt.citas_reservacion_sistema_backend.entity.EstadoDeCita;
 import com.femt.citas_reservacion_sistema_backend.service.CitaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -118,17 +116,6 @@ public class CitaController {
     public ResponseEntity<?> obtenerCitasPorSede(@PathVariable Long sedeId) {
         try {
             List<CitaDTO> citas = citaService.obtenerCitasPorSede(sedeId);
-            return ResponseEntity.ok(citas);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
-        }
-    }
-
-    @Operation(summary = "Buscar citas por ID de especialidad")
-    @GetMapping("/especialidad/{especialidadId}")
-    public ResponseEntity<?> obtenerCitasPorEspecialidad(@PathVariable Long especialidadId) {
-        try {
-            List<CitaDTO> citas = citaService.obtenerCitasPorEspecialidad(especialidadId);
             return ResponseEntity.ok(citas);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());

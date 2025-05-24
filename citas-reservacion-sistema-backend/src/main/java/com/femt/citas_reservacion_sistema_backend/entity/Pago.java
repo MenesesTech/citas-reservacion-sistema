@@ -17,8 +17,6 @@ public class Pago {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    // Monto total pagado para la cita
-    private BigDecimal monto;
     // Identificador de la transacción proporcionado por la pasarela de pagos
     private String idTransaccionPasarela;
     // Nombre o identificador del proveedor de pasarela de pago

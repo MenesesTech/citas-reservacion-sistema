@@ -19,18 +19,10 @@ public class Cita {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     // Identificador de la cita
     private Long id;
-    // Fecha programada de la cita
-    private LocalDate fecha;
-    // Horario programada para la cita
-    private LocalTime hora;
-    // Monto a pagar por la cita
-    private BigDecimal monto;
     // Cita dirigido a un tipo de paciente (SEGURO, PARTICULAR Y OTROS)
     private String tipoPaciente;
-
     // Estado de la cita (PAGADA, CANCELADA, ATENDIDA)
-    @Enumerated(EnumType.STRING)
-    private EstadoDeCita estado;
+    private String estado;
 
     /**
      * Médico asignado a la cita.
@@ -51,11 +43,4 @@ public class Cita {
      */
     @OneToOne(mappedBy = "cita", cascade = CascadeType.ALL)
     private Pago pago;
-
-    /**
-     * Relación entre el médico y la especialidad asociada
-     * a esta cita
-     */
-    @OneToOne(mappedBy = "cita", cascade = CascadeType.ALL)
-    private MedicoEspecialidad medicoEspecialidad;
 }

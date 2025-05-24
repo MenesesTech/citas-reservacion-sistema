@@ -1,6 +1,5 @@
 package com.femt.citas_reservacion_sistema_backend.service.imp;
 
-import com.femt.citas_reservacion_sistema_backend.dto.FechaHoraDTO;
 import com.femt.citas_reservacion_sistema_backend.mapper.FechaHoraMapper;
 import com.femt.citas_reservacion_sistema_backend.repository.FechaHoraRepository;
 import com.femt.citas_reservacion_sistema_backend.service.FechaHoraService;

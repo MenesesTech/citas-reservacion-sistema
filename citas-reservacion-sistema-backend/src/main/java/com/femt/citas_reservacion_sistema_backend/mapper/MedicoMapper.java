@@ -1,21 +1,31 @@
 package com.femt.citas_reservacion_sistema_backend.mapper;
 
-import com.femt.citas_reservacion_sistema_backend.dto.MedicoDTO;
+import com.femt.citas_reservacion_sistema_backend.dto.MedicoRequestDTO;
+import com.femt.citas_reservacion_sistema_backend.dto.MedicoResponseDTO;
 import com.femt.citas_reservacion_sistema_backend.entity.Medico;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import java.util.List;
+import java.util.stream.Collectors;
 
-@Mapper(componentModel = "Spring")
-public interface MedicoMapper {
-    @Mapping(target = "especialidades", source = "medicoEspecialidades")
-    @Mapping(target = "fechaDisponible", ignore = true)
-    @Mapping(target = "horaDisponible", ignore = true)
-    @Mapping(target = "disponible", ignore = true)
-    MedicoDTO toDTO(Medico medico);
+@Component
+public class MedicoMapper {
+    @Autowired
+    private ModelMapper modelMapper;
 
-    @Mapping(target = "medicoEspecialidades", ignore = true)
-    @Mapping(target = "horariosDisponibles", ignore = true)
-    @Mapping(target = "citas", ignore = true)
-    Medico toEntity(MedicoDTO dto);
+    public MedicoResponseDTO toDto(Medico medico){
+        return modelMapper.map(medico,MedicoResponseDTO.class);
+    }
+
+    public List<MedicoResponseDTO> toDoList(List<Medico> medicos){
+        return medicos.stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
+    }
+
+    public Medico toEntity(MedicoRequestDTO medicoRequestDTO) {
+        return modelMapper.map(medicoRequestDTO, Medico.class);
+    }
 }

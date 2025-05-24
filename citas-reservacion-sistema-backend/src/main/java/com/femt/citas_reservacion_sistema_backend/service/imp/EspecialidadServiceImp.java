@@ -1,6 +1,5 @@
 package com.femt.citas_reservacion_sistema_backend.service.imp;
 
-import com.femt.citas_reservacion_sistema_backend.dto.EspecialidadDTO;
 import com.femt.citas_reservacion_sistema_backend.mapper.EspecialidadMapper;
 import com.femt.citas_reservacion_sistema_backend.repository.EspecialidadRepository;
 import com.femt.citas_reservacion_sistema_backend.service.EspecialidadService;

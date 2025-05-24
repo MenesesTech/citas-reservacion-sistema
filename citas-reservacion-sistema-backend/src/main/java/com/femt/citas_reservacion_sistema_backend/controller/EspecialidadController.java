@@ -1,6 +1,5 @@
 package com.femt.citas_reservacion_sistema_backend.controller;
 
-import com.femt.citas_reservacion_sistema_backend.dto.EspecialidadDTO;
 import com.femt.citas_reservacion_sistema_backend.service.EspecialidadService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

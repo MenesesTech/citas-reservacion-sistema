@@ -7,7 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SedeDTO {
-    private Long id;
+public class MedicoRequestDTO {
     private String nombre;
+    private String apellido;
+    private String correo;
+    private String celular;
+    private Long especialidad_id;
+    private Long sede_id;
 }

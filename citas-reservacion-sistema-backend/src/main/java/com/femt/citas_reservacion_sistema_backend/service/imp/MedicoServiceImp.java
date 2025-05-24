@@ -1,45 +1,46 @@
 package com.femt.citas_reservacion_sistema_backend.service.imp;
 
-import com.femt.citas_reservacion_sistema_backend.dto.EspecialidadDTO;
-import com.femt.citas_reservacion_sistema_backend.dto.MedicoDTO;
+import com.femt.citas_reservacion_sistema_backend.dto.MedicoRequestDTO;
+import com.femt.citas_reservacion_sistema_backend.dto.MedicoResponseDTO;
+import com.femt.citas_reservacion_sistema_backend.entity.Medico;
 import com.femt.citas_reservacion_sistema_backend.mapper.MedicoMapper;
-import com.femt.citas_reservacion_sistema_backend.repository.MedicoEspecialidadRepository;
 import com.femt.citas_reservacion_sistema_backend.repository.MedicoRepository;
 import com.femt.citas_reservacion_sistema_backend.service.MedicoService;
 
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
-
-import org.springframework.stereotype.Service;
+import java.util.stream.Collectors;
 
 @Service
 public class MedicoServiceImp implements MedicoService {
+
     private final MedicoRepository medicoRepository;
-    private final MedicoEspecialidadRepository medicoEspecialidadRepository;
     private final MedicoMapper medicoMapper;
 
-    public MedicoServiceImp(MedicoRepository medicoRepository,
-            MedicoEspecialidadRepository medicoEspecialidadRepository, MedicoMapper medicoMapper) {
+    public MedicoServiceImp(MedicoRepository medicoRepository, MedicoMapper medicoMapper) {
         this.medicoRepository = medicoRepository;
-        this.medicoEspecialidadRepository = medicoEspecialidadRepository;
         this.medicoMapper = medicoMapper;
     }
 
     @Override
-    public List<MedicoDTO> listaMedicos() throws Exception {
+    public List<MedicoResponseDTO> listaMedicos() throws Exception {
         return this.medicoRepository.findAll().stream()
-                .map(medicoMapper::toDTO).toList();
+                .map(medicoMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Optional<MedicoDTO> obtenerMedicoPorId(Long id) throws Exception {
+    public Optional<MedicoResponseDTO> obtenerMedicoPorId(Long id) throws Exception {
         return this.medicoRepository.findById(id)
-                .map(medicoMapper::toDTO);
+                .map(medicoMapper::toDto);
     }
 
     @Override
-    public void guardarMedico(MedicoDTO medicoRequest) throws Exception {
-        this.medicoRepository.save(medicoMapper.toEntity(medicoRequest));
+    public void guardarMedico(MedicoRequestDTO medicoRequest) throws Exception {
+        Medico medico = medicoMapper.toEntity(medicoRequest);
+        this.medicoRepository.save(medico);
     }
 
     @Override
@@ -51,36 +52,18 @@ public class MedicoServiceImp implements MedicoService {
     }
 
     @Override
-    public void actualizarMedico(MedicoDTO medicoRequest) throws Exception {
+    public MedicoResponseDTO actualizarMedico(MedicoRequestDTO medicoRequest) throws Exception {
+        if (medicoRequest == null) {
+            throw new Exception("Datos del médico son nulos");
+        }
+        // Aquí debes obtener el ID del medicoRequest, pero tu DTO no tiene id
+        // Debes agregar Long id a MedicoRequestDTO para actualizar correctamente
         if (medicoRequest.getId() == null || !medicoRepository.existsById(medicoRequest.getId())) {
             throw new Exception("Médico no encontrado para actualizar");
         }
-        this.medicoRepository.save(medicoMapper.toEntity(medicoRequest));
+
+        Medico medico = medicoMapper.toEntity(medicoRequest);
+        Medico medicoActualizado = medicoRepository.save(medico);
+        return medicoMapper.toDto(medicoActualizado);
     }
-
-    @Override
-    public List<String> obtenerEspecialidadesMedico(Long medicoId) {
-        return this.medicoEspecialidadRepository.findEspecialidadesPorMedico(medicoId);
-    }
-
-    @Override
-    public Optional<MedicoDTO> obtenerMedicoConEspecialidades(Long medicoId) throws Exception {
-        var optionalMedico = medicoRepository.findById(medicoId);
-        if (optionalMedico.isEmpty())
-            return Optional.empty();
-
-        var medico = optionalMedico.get();
-        var nombresEspecialidades = medicoEspecialidadRepository.findEspecialidadesPorMedico(medicoId);
-
-        // Convertimos los nombres en objetos EspecialidadDTO (sin ID si no está disponible)
-        List<EspecialidadDTO> especialidadesDTO = nombresEspecialidades.stream()
-                .map(nombre -> new EspecialidadDTO(medicoId, nombre))
-                .toList();
-
-        MedicoDTO dto = medicoMapper.toDTO(medico);
-        dto.setEspecialidades(especialidadesDTO);
-
-        return Optional.of(dto);
-    }
-
 }

@@ -1,6 +1,5 @@
 package com.femt.citas_reservacion_sistema_backend.controller;
 
-import com.femt.citas_reservacion_sistema_backend.dto.MedicoDTO;
 import com.femt.citas_reservacion_sistema_backend.service.MedicoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -40,18 +39,6 @@ public class MedicoController {
     public ResponseEntity<?> obtenerMedicoPorId(@PathVariable Long idMedico) {
         try {
             return medicoService.obtenerMedicoPorId(idMedico)
-                    .map(ResponseEntity::ok)
-                    .orElse(ResponseEntity.notFound().build());
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
-        }
-    }
-
-    @Operation(summary = "Obtener un médico con sus especialidades")
-    @GetMapping("/{idMedico}/especialidades")
-    public ResponseEntity<?> obtenerMedicoConEspecialidades(@PathVariable Long idMedico) {
-        try {
-            return medicoService.obtenerMedicoConEspecialidades(idMedico)
                     .map(ResponseEntity::ok)
                     .orElse(ResponseEntity.notFound().build());
         } catch (Exception e) {

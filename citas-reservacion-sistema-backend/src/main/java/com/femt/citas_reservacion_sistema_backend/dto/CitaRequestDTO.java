@@ -7,7 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SedeDTO {
-    private Long id;
-    private String nombre;
+public class CitaRequestDTO {
+    private String tipoPaciente;
+    private String Estado;
+    private Long medicoId;
+    private Long usuarioId;
+    private Long pagoId;
 }

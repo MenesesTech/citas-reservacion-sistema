@@ -27,6 +27,10 @@ public class Medico {
     private String correo;
     // Teléfono del médico
     private String celular;
+    // Especialidad del medico
+    @ManyToOne
+    @JoinColumn(name = "especialidad_id")
+    private Especialidad especialidad;
 
     /**
      * Sede en la que el médico está asignado
@@ -36,13 +40,6 @@ public class Medico {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sede_id")
     private Sede sede;
-
-    /**
-     * Lista de especialidades que posee el medico
-     * Relación uno-a-muchos con la entidad Especialidades
-     */
-    @OneToMany(mappedBy = "medico", cascade = CascadeType.ALL)
-    private List<MedicoEspecialidad> medicoEspecialidades;
 
     /**
      * Disponibilidad del médico
