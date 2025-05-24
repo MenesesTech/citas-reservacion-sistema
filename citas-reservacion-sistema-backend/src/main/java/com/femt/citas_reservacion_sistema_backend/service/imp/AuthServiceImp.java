@@ -6,7 +6,9 @@ import com.femt.citas_reservacion_sistema_backend.entity.Usuario;
 import com.femt.citas_reservacion_sistema_backend.mapper.UsuarioMapper;
 import com.femt.citas_reservacion_sistema_backend.repository.UsuarioRepository;
 import com.femt.citas_reservacion_sistema_backend.service.AuthService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AuthServiceImp implements AuthService {
 
     private final UsuarioRepository usuarioRepository;
