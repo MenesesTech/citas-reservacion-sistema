@@ -1,5 +1,6 @@
 package com.femt.citas_reservacion_sistema_backend.service.imp;
 
+import com.femt.citas_reservacion_sistema_backend.dto.EspecialidadDTO;
 import com.femt.citas_reservacion_sistema_backend.dto.MedicoDTO;
 import com.femt.citas_reservacion_sistema_backend.mapper.MedicoMapper;
 import com.femt.citas_reservacion_sistema_backend.repository.MedicoEspecialidadRepository;
@@ -69,11 +70,17 @@ public class MedicoServiceImp implements MedicoService {
             return Optional.empty();
 
         var medico = optionalMedico.get();
-        var especialidades = medicoEspecialidadRepository.findEspecialidadesPorMedico(medicoId);
+        var nombresEspecialidades = medicoEspecialidadRepository.findEspecialidadesPorMedico(medicoId);
+
+        // Convertimos los nombres en objetos EspecialidadDTO (sin ID si no está disponible)
+        List<EspecialidadDTO> especialidadesDTO = nombresEspecialidades.stream()
+                .map(nombre -> new EspecialidadDTO(medicoId, nombre))
+                .toList();
 
         MedicoDTO dto = medicoMapper.toDTO(medico);
-        dto.setEspecialidades(especialidades);
+        dto.setEspecialidades(especialidadesDTO);
 
         return Optional.of(dto);
     }
+
 }

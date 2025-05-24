@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MedicoDTO {
-    private Long id;
+    private Long id = null;
     // Nombre del médico
     private String nombre;
     // Apellidos del médico
@@ -24,7 +24,7 @@ public class MedicoDTO {
     // Nombre de la sede donde trabaja el médico
     private SedeDTO sede;
     // Nombres de las especialidades asociadas al médico
-    private List<String> especialidades;
+    private List<EspecialidadDTO> especialidades;
     // Informacion de disponibilidad
     private LocalDate fechaDisponible;
     private LocalTime horaDisponible;

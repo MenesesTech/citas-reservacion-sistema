@@ -3,13 +3,17 @@ package com.femt.citas_reservacion_sistema_backend.controller;
 import com.femt.citas_reservacion_sistema_backend.dto.CitaDTO;
 import com.femt.citas_reservacion_sistema_backend.entity.EstadoDeCita;
 import com.femt.citas_reservacion_sistema_backend.service.CitaService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Tag(name = "Citas", description = "Operaciones relacionadas con las citas médicas")
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/v1/citas")
@@ -18,20 +22,26 @@ public class CitaController {
     @Autowired
     private CitaService citaService;
 
-    @GetMapping
-    public ResponseEntity<?> listarCitas() {
+    @Operation(summary = "Listar todas las citas")
+    @GetMapping("/all-citas")
+    public ResponseEntity<List<CitaDTO>> listarCitas() {
         try {
             List<CitaDTO> citas = citaService.listaCitas();
+            if (citas.isEmpty()){
+                return ResponseEntity.noContent().build();
+            }
             return ResponseEntity.ok(citas);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error al obtener citas: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> obtenerCitaPorId(@PathVariable Long id) {
+    @Operation(summary = "Obtener una cita por ID")
+    @GetMapping("/find/{idCita}")
+    public ResponseEntity<?> obtenerCitaPorId(@PathVariable Long idCita) {
         try {
-            return citaService.obtenerCitaPorId(id)
+            return citaService.obtenerCitaPorId(idCita)
                     .map(ResponseEntity::ok)
                     .orElse(ResponseEntity.notFound().build());
         } catch (Exception e) {
@@ -39,34 +49,39 @@ public class CitaController {
         }
     }
 
-    @PostMapping
+    @Operation(summary = "Crear una nueva cita")
+    @PostMapping("/create")
     public ResponseEntity<?> crearCita(@RequestBody CitaDTO citaDTO) {
         if (citaDTO == null) {
             return ResponseEntity.badRequest().body("Error: la solicitud está vacía");
-        }
-        try {
-            CitaDTO citaCreada = citaService.guardarCita(citaDTO);
-            return ResponseEntity.ok(citaCreada);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error al crear cita: " + e.getMessage());
+        }else{
+            try {
+                CitaDTO citaCreada = citaService.guardarCita(citaDTO);
+                return ResponseEntity.ok("Cita registrada correctamente");
+            } catch (Exception e) {
+                return ResponseEntity.badRequest().body("Error al crear cita: " + e.getMessage());
+            }
         }
     }
 
-    @PutMapping("/{id}")
+    @Operation(summary = "Actualizar una cita")
+    @PutMapping("/update/{id}")
     public ResponseEntity<?> actualizarCita(@PathVariable Long id, @RequestBody CitaDTO citaDTO) {
         if (citaDTO == null) {
             return ResponseEntity.badRequest().body("Error: la solicitud está vacía");
-        }
-        try {
-            citaDTO.setId(id);
-            CitaDTO citaActualizada = citaService.actualizarCita(citaDTO);
-            return ResponseEntity.ok(citaActualizada);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error al actualizar cita: " + e.getMessage());
+        }else{
+            try {
+                citaDTO.setId(id);
+                CitaDTO citaActualizada = citaService.actualizarCita(citaDTO);
+                return ResponseEntity.ok(citaActualizada);
+            } catch (Exception e) {
+                return ResponseEntity.badRequest().body("Error al actualizar cita: " + e.getMessage());
+            }
         }
     }
 
-    @DeleteMapping("/{id}")
+    @Operation(summary = "Eliminar una cita")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> eliminarCita(@PathVariable Long id) {
         try {
             citaService.eliminarCita(id);
@@ -76,6 +91,7 @@ public class CitaController {
         }
     }
 
+    @Operation(summary = "Buscar citas por ID del médico")
     @GetMapping("/medico/{medicoId}")
     public ResponseEntity<?> obtenerCitasPorMedico(@PathVariable Long medicoId) {
         try {
@@ -86,6 +102,7 @@ public class CitaController {
         }
     }
 
+    @Operation(summary = "Buscar citas por ID del usuario")
     @GetMapping("/usuario/{usuarioId}")
     public ResponseEntity<?> obtenerCitasPorUsuario(@PathVariable Long usuarioId) {
         try {
@@ -96,6 +113,7 @@ public class CitaController {
         }
     }
 
+    @Operation(summary = "Buscar citas por ID de la sede")
     @GetMapping("/sede/{sedeId}")
     public ResponseEntity<?> obtenerCitasPorSede(@PathVariable Long sedeId) {
         try {
@@ -106,6 +124,7 @@ public class CitaController {
         }
     }
 
+    @Operation(summary = "Buscar citas por ID de especialidad")
     @GetMapping("/especialidad/{especialidadId}")
     public ResponseEntity<?> obtenerCitasPorEspecialidad(@PathVariable Long especialidadId) {
         try {
@@ -116,6 +135,7 @@ public class CitaController {
         }
     }
 
+    @Operation(summary = "Buscar citas por fecha")
     @GetMapping("/fecha/{fecha}")
     public ResponseEntity<?> obtenerCitasPorFecha(@PathVariable String fecha) {
         try {
@@ -127,6 +147,7 @@ public class CitaController {
         }
     }
 
+    @Operation(summary = "Buscar citas por estado")
     @GetMapping("/estado/{estado}")
     public ResponseEntity<?> obtenerCitasPorEstado(@PathVariable String estado) {
         try {

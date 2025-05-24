@@ -32,4 +32,5 @@ public class MedicoEspecialidad {
     @OneToOne
     @JoinColumn(name = "cita_id")
     private Cita cita;
+
 }

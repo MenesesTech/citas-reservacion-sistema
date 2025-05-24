@@ -28,4 +28,9 @@ public class Especialidad {
      */
     @OneToMany(mappedBy = "especialidad", cascade = CascadeType.ALL)
     private List<MedicoEspecialidad> medicoEspecialidad;
+
+    public Especialidad(Long id) {
+        this.id = id;
+    }
+
 }

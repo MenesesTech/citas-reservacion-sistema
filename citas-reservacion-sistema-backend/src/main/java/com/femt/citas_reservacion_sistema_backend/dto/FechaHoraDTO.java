@@ -11,7 +11,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FechaHoraDTO {
-    private Long id;
+    private Long id = null;
     private LocalDate fecha;
     private LocalTime hora;
     private Boolean disponible;

@@ -4,10 +4,12 @@ import com.femt.citas_reservacion_sistema_backend.dto.FechaHoraDTO;
 import com.femt.citas_reservacion_sistema_backend.mapper.FechaHoraMapper;
 import com.femt.citas_reservacion_sistema_backend.repository.FechaHoraRepository;
 import com.femt.citas_reservacion_sistema_backend.service.FechaHoraService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class FechaHoraServiceImp implements FechaHoraService {
 
     private final FechaHoraRepository fechaHoraRepository;

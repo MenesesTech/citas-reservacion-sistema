@@ -1,6 +1,7 @@
 package com.femt.citas_reservacion_sistema_backend.service;
 
 import com.femt.citas_reservacion_sistema_backend.dto.MedicoDTO;
+import com.femt.citas_reservacion_sistema_backend.dto.MedicoEspecialidadDTO;
 
 import java.util.List;
 import java.util.Optional;

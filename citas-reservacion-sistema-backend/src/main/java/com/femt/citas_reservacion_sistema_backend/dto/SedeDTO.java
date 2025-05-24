@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SedeDTO {
-    private Long id;
+    private Long id = null;
     private String nombre;
 }

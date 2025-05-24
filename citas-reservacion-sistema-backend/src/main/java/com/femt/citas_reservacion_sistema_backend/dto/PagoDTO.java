@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PagoDTO {
-    private Long id;
+    private Long id = null;
     private BigDecimal monto;
     private String idTransaccionPasarela;
     private String proveedor_pasarela;

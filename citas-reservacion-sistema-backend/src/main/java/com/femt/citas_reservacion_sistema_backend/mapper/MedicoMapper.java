@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "Spring")
 public interface MedicoMapper {
-    @Mapping(target = "especialidades", ignore = true)
+    @Mapping(target = "especialidades", source = "medicoEspecialidades")
     @Mapping(target = "fechaDisponible", ignore = true)
     @Mapping(target = "horaDisponible", ignore = true)
     @Mapping(target = "disponible", ignore = true)
