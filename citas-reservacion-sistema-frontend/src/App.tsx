@@ -5,9 +5,20 @@ import { BrowserRouter} from 'react-router'
 import Auth from './Pages/Auth/Index.tsx';
 import './App.css'
 import './index.css'
-
+import { useEffect, useState } from 'react';
+import LoggedInFlow from './Pages/App/Index.tsx';
 
 function App() {
+
+  const [isLoggedIn, SetIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      SetIsLoggedIn(true);
+    }
+  }, [])
+
   return (
     <>
     <header>
@@ -16,7 +27,7 @@ function App() {
     <main className='tw-img-backgroundmain'>
       <MantineProvider>
       <BrowserRouter>
-        <div><Auth/></div>
+        {isLoggedIn ? <LoggedInFlow /> : <Auth />}
       </BrowserRouter>
       </MantineProvider>
     </main>

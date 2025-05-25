@@ -4,7 +4,7 @@ import Dashboard from "./Dashboard.tsx";
 export default function LoggedInFlow() {
     return (
             <Routes>
-                <Route path="/Dasboard" element={<Dashboard/>}/>
+                <Route path="/" element={<Dashboard/>}/>
             </Routes>
     )
 }

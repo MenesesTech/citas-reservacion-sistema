@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-CitasReservacionSistemaBackendApplication<citas-reservacion-sistema-backend>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.femt.citas_reservacion_sistema_backend.CitasReservacionSistemaBackendApplication",
+            "projectName": "citas-reservacion-sistema-backend",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

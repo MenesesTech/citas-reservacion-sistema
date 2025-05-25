@@ -1,29 +1,56 @@
 import { Button, Box, Group, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
-
+import { baseUrl } from '../../Utils/baseUrl.tsx'
+import { useState } from 'react';
+import './Style.css'
 export default function Login () {
+
+    const [loading, setLoading] = useState(false);
 
     const form = useForm({
     mode: 'uncontrolled',
     initialValues: {
-        email: '',
+        dni: '',
         password: ''
     },
 
-    validate: {
-        email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
-        password: (value) => value.length < 6 ? 'Invalid Password' :null
-    },
+    
         });
+
+    const handleSubmit = async (values: typeof form.values) => {
+        setLoading(true);
+
+        const resp = await fetch (baseUrl + 'auth/login', {
+            method: 'POST',
+            body: JSON.stringify(values),
+            headers: {
+                'Content-Type': 'application/json',
+                accept: 'application/json'
+        }
+    })
+
+    const data = await resp.json();
+    if (data.sucess) {
+        console.log(data)
+        localStorage.setItem('token', data.data.token);
+        localStorage.setItem('user', JSON.stringify(data.data.user));
+        window.location.reload();
+    } else {
+        alert(data.message)
+    }
+    setLoading(false)
+    }
+
     return(
+        <div className='tw-component-form'>
         <Box display="flex" style={{justifyContent: 'Center', alignItems: 'Center'}}>
-        <form onSubmit={form.onSubmit((values) => console.log(values))}>
-            <text>Correo:</text>
+        <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
+            <text>DNI:</text>
             <TextInput
             withAsterisk
             placeholder="Ingrese su correo "
-            key={form.key('email')}
-            {...form.getInputProps('email')}
+            key={form.key('dni')}
+            {...form.getInputProps('dni')}
             />
             <text>Conntraseña:</text>
             <TextInput
@@ -34,9 +61,10 @@ export default function Login () {
             />
 
             <Group justify="flex-end" mt="md">
-            <Button type="submit">Ingresar</Button>
+            <Button loading={loading} type="submit">Ingresar</Button>
             </Group>
         </form>
         </Box>
+        </div>
     )
 }
