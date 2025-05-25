@@ -48,5 +48,13 @@ export function useValidation() {
     []
   );
 
-  return { ...state, validate };
+  const setError = (error: string | null) => {
+    setState((prev) => ({ ...prev, error }));
+  };
+
+  const clearError = () => {
+    setError(null);
+  };
+
+  return { ...state, validate, setError, clearError };
 }

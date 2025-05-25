@@ -1,12 +1,20 @@
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import RegisterForm from "./pages/RegistroUsuarioPage";
+import LoginPage from "./pages/LoginUsuarioPage";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/Register" element={<RegisterForm />}></Route>
+        {/* Redirección por defecto a /login */}
+        <Route path="/" element={<Navigate to="/login" replace />} />
+
+        {/* Página de Login */}
+        <Route path="/login" element={<LoginPage />} />
+
+        {/* Página de Registro */}
+        <Route path="/register" element={<RegisterForm />} />
       </Routes>
     </Router>
   );

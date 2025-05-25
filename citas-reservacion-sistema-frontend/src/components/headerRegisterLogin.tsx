@@ -1,28 +1,38 @@
+import React from "react";
+
 const Header = () => {
   return (
-    <header className="py-3 mb-4 border-bottom bg-light">
-      <div className="container d-flex flex-wrap justify-content-center">
+    <header className="py-4 shadow-sm bg-white border-bottom">
+      <div className="container d-flex flex-wrap align-items-center justify-content-between">
         <a
           href="/"
-          className="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto text-dark text-decoration-none"
+          className="d-flex align-items-center text-primary text-decoration-none"
         >
-          {/* Puedes reemplazar este SVG por un ícono de Bootstrap real si lo usas con icon library */}
+          {/* Medical cross with heart icon */}
           <svg
-            className="w-[48px] h-[48px] text-gray-800 dark:text-white"
-            aria-hidden="true"
+            width="56"
+            height="56"
+            viewBox="0 0 56 56"
+            fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            width="32"
-            height="32"
-            fill="currentColor"
-            viewBox="0 0 24 24"
+            style={{ marginRight: 16 }}
           >
+            <circle cx="28" cy="28" r="28" fill="#E3F6FC" />
+            <rect x="23" y="12" width="10" height="32" rx="5" fill="#00BCD4" />
+            <rect x="12" y="23" width="32" height="10" rx="5" fill="#00BCD4" />
             <path
-              fillRule="evenodd"
-              d="M18 5.05h1a2 2 0 0 1 2 2v2H3v-2a2 2 0 0 1 2-2h1v-1a1 1 0 1 1 2 0v1h3v-1a1 1 0 1 1 2 0v1h3v-1a1 1 0 1 1 2 0v1Zm-15 6v8a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-8H3ZM11 18a1 1 0 1 0 2 0v-1h1a1 1 0 1 0 0-2h-1v-1a1 1 0 1 0-2 0v1h-1a1 1 0 1 0 0 2h1v1Z"
-              clipRule="evenodd"
+              d="M28 38c-3-2.5-8-5.5-8-10a5 5 0 0 1 8-4 5 5 0 0 1 8 4c0 4.5-5 7.5-8 10z"
+              fill="#FF6F91"
+              stroke="#fff"
+              strokeWidth="2"
             />
           </svg>
-          <span className="fs-5 ms-3 align-middle">Clinica Santa</span>
+          <span
+            className="fs-3 fw-bold align-middle"
+            style={{ letterSpacing: 1 }}
+          >
+            Clínica Elber Galarga
+          </span>
         </a>
       </div>
     </header>

@@ -1,3 +1,5 @@
+import { FaCheckCircle } from "react-icons/fa";
+
 interface StepIndicatorProps {
   currentStep: number;
   steps: string[];
@@ -5,22 +7,68 @@ interface StepIndicatorProps {
 
 const StepIndicator = ({ currentStep, steps }: StepIndicatorProps) => {
   return (
-    <div className="d-flex justify-content-between mb-4">
-      {steps.map((label, index) => (
-        <div key={index} className="text-center flex-fill">
+    <div
+      className="d-flex justify-content-between align-items-center mb-5"
+      style={{ maxWidth: 600 }}
+    >
+      {steps.map((label, index) => {
+        const isCompleted = currentStep > index + 1;
+        const isActive = currentStep === index + 1;
+        return (
           <div
-            className={`rounded-circle mx-auto mb-2 ${
-              currentStep === index + 1
-                ? "bg-success text-white"
-                : "bg-light border text-dark"
-            }`}
-            style={{ width: "40px", height: "40px", lineHeight: "40px" }}
+            key={index}
+            className="flex-fill text-center position-relative"
+            style={{ minWidth: 80 }}
           >
-            {index + 1}
+            <div
+              className={`mx-auto d-flex align-items-center justify-content-center shadow`}
+              style={{
+                width: 48,
+                height: 48,
+                borderRadius: "50%",
+                background: isCompleted
+                  ? "linear-gradient(135deg, #4fd1c5 0%, #38b2ac 100%)"
+                  : isActive
+                  ? "linear-gradient(135deg, #63b3ed 0%, #4299e1 100%)"
+                  : "#f7fafc",
+                color: isCompleted || isActive ? "#fff" : "#a0aec0",
+                fontWeight: "bold",
+                fontSize: 22,
+                border: isActive ? "3px solid #4299e1" : "2px solid #e2e8f0",
+                transition: "all 0.3s",
+                boxShadow: isActive ? "0 0 0 4px #bee3f8" : "none",
+              }}
+            >
+              {isCompleted ? <FaCheckCircle size={28} /> : index + 1}
+            </div>
+            <div
+              style={{
+                fontSize: 14,
+                color: isActive ? "#4299e1" : "#718096",
+                fontWeight: isActive ? 600 : 400,
+              }}
+            >
+              {label}
+            </div>
+            {index < steps.length - 1 && (
+              <div
+                className="position-absolute"
+                style={{
+                  top: 24,
+                  right: -40,
+                  width: 80,
+                  height: 4,
+                  background: isCompleted
+                    ? "linear-gradient(90deg, #4fd1c5 0%, #38b2ac 100%)"
+                    : "#e2e8f0",
+                  zIndex: 0,
+                  borderRadius: 2,
+                }}
+              />
+            )}
           </div>
-          <small>{label}</small>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };

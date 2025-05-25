@@ -5,8 +5,8 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegistroUsuarioPage";
+import LoginPage from "./pages/LoginUsuarioPage";
 
 const App: React.FC = () => {
   return (

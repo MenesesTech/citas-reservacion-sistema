@@ -1,41 +1,33 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
 :root {
+  --color-background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%);
   --colors-transparent: ffffff00;
   --colors-black: #000000;
   --colors-white: #ffffff;
-  --colors-primary100: #f2f9f5;
-  --colors-primary200: #e3eee9;
-  --colors-primary300: #bce1cd;
-  --colors-primary500: #83c5a2;
-  --colors-primary600: #36ad55;
-  --colors-primary800: #297b41;
-  --colors-secondary300: #f2efff;
-  --colors-secondary500: #b6a8ff;
-  --colors-secondary600: #7b61ff;
-  --colors-secondary700: #3a2799;
+  --color-button: linear-gradient(90deg, #00bcd4 0%, #0097a7 100%);
 }
 
 body {
   font-size: 18px;
   font-family: "Nunito Sans", sans-serif;
   font-optical-sizing: auto;
-  background-color: var(--colors-primary100);
+  background-color: var(--color-background);
   color: var(--color-nonary);
   margin: 0;
   padding: 0;
 }
 .btn-dni {
-  background-color: var(--colors-primary600);
+  background: var(--color-button);
   color: white;
   border: none;
   transition: background-color 0.3s ease;
 }
 .btn-dni:hover {
-  background-color: var(--colors-primary800);
+  background: var(--color-button);
   color: white;
 }
 .btn-dni:disabled {
-  background-color: var(--colors-primary600);
+  background: var(--color-button);
   cursor: not-allowed;
   opacity: 0.8;
 }

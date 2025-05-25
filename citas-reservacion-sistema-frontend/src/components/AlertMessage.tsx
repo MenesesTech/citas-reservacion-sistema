@@ -1,5 +1,6 @@
 interface Props {
   type: "success" | "danger";
+
   message: string;
 }
 
