@@ -1,4 +1,4 @@
-import About from "./About"
+import About from "../About"
 import Login from "./Login"
 import { Routes, Route } from "react-router"
 
