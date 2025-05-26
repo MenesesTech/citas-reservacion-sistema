@@ -12,4 +12,6 @@ public interface PacienteService {
     void registrarPaciente(PacienteRequestDTO pacienteRequestDTO) throws Exception;
     void eliminarPaciente(Long id) throws Exception;
     PacienteResponseDTO actualizarPaciente(Long id, PacienteRequestDTO pacienteRequestDTO) throws Exception;
+    Optional<PacienteResponseDTO> obtenerPacientePorUsuarioId(Long usuarioId);
+
 }

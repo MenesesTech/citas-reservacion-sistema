@@ -48,4 +48,5 @@ public class AuthController {
                     .body("Error de autenticación: " + e.getMessage());
         }
     }
+
 }

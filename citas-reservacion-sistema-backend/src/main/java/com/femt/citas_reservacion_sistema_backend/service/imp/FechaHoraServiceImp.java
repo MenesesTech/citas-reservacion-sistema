@@ -108,4 +108,16 @@ public class FechaHoraServiceImp implements FechaHoraService {
                 .map(fechaHoraMapper::toResponseDTO)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<FechaHoraResponseDTO> listarFechasDisponiblesPorMedico(Long idMedico) throws Exception {
+        if (!medicoRepository.existsById(idMedico)){
+            throw new Exception("Médico no encontrado con ID: " + idMedico);
+        }
+        List<FechaHora> fechas = fechaHoraRepository.findByFechaByMedicoId(idMedico);
+        return fechas.stream()
+                .map(fechaHoraMapper::toResponseDTO)
+                .collect(Collectors.toList());
+
+    }
 }

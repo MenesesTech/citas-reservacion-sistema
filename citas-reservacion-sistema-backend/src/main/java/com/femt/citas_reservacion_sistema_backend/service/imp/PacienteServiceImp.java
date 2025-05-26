@@ -37,6 +37,11 @@ public class PacienteServiceImp implements PacienteService {
                 .map(pacienteMapper::toResponseDTO)
                 .collect(Collectors.toList());
     }
+    @Override
+    public Optional<PacienteResponseDTO> obtenerPacientePorUsuarioId(Long usuarioId) {
+        return pacienteRepository.findByUsuarioId(usuarioId)
+                .map(pacienteMapper::toResponseDTO);
+    }
 
     @Override
     public Optional<PacienteResponseDTO> obtenerPacientePorId(Long id) throws Exception {

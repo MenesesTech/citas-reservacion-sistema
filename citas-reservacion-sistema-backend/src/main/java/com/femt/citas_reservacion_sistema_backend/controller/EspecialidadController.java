@@ -96,7 +96,7 @@ public class EspecialidadController {
         }
     }
 
-    @GetMapping("/{id}/medicos")
+    @GetMapping("/medicos/{id}")
     @Operation(summary = "Listar médicos asociados a una especialidad")
     public ResponseEntity<?> listarMedicosPorEspecialidad(@PathVariable Long id) {
         try {

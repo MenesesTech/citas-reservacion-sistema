@@ -16,4 +16,5 @@ public interface FechaHoraService {
 
     List<FechaHoraResponseDTO> listarDisponiblesPorMedico(Long medicoId) throws Exception;
     List<FechaHoraResponseDTO> listarDisponiblesPorMedicoYFecha(Long medicoId, LocalDate fecha) throws Exception;
+    List<FechaHoraResponseDTO> listarFechasDisponiblesPorMedico(Long idMedico) throws Exception;
 }

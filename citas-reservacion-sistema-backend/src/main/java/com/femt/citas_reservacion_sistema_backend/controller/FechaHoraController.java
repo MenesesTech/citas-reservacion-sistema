@@ -34,6 +34,17 @@ public class FechaHoraController {
         }
     }
 
+    @GetMapping("/medico/{id}")
+    @Operation(summary = "Listar Fechas Disponibles por Medico")
+    public ResponseEntity<?> listarFechasPorMedico(@PathVariable Long id){
+        try {
+            List<FechaHoraResponseDTO> fechas = fechaHoraService.listarFechasDisponiblesPorMedico(id);
+            return ResponseEntity.ok(fechas);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
+    }
+
     @GetMapping("/{id}")
     @Operation(summary = "Obtener fecha y hora por ID", description = "Devuelve una fecha y hora específica")
     public ResponseEntity<?> obtenerPorId(@PathVariable Long id) {

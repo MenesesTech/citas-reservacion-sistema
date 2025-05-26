@@ -1,0 +1,13 @@
+:root {
+  --colors-white: #ffffff;
+  --colors-black: #000000;
+  --colors-primary: #0097a7;
+}
+.h2 {
+  color: var(--colors-primary);
+  font-weight: 700;
+}
+.card-primary-title {
+  background: #0097a7;
+  color: var(--colors-white) !important;
+}

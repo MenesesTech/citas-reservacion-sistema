@@ -99,4 +99,21 @@ public class PacienteController {
                     .body("Error al eliminar paciente: " + e.getMessage());
         }
     }
+
+    @GetMapping("/usuario/{usuarioId}")
+    @Operation(summary = "Obtener paciente por usuarioId")
+    public ResponseEntity<?> obtenerPacientePorUsuarioId(@PathVariable Long usuarioId) {
+        try {
+            Optional<PacienteResponseDTO> paciente = pacienteService.obtenerPacientePorUsuarioId(usuarioId);
+            if (paciente.isPresent()) {
+                return ResponseEntity.ok(paciente.get());
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Paciente no encontrado para el usuarioId: " + usuarioId);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al obtener paciente: " + e.getMessage());
+        }
+    }
+
 }

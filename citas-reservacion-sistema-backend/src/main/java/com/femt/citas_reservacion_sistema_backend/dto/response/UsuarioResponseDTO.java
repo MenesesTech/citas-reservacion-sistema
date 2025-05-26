@@ -22,5 +22,6 @@ public class UsuarioResponseDTO {
     private String provincia;
     private String distrito;
     private String direccion;
+    private String tipoUsuario;
     private LocalDate created;
 }

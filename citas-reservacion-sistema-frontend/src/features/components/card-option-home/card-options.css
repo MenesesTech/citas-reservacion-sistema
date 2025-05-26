@@ -1,0 +1,87 @@
+.card-option-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: flex-start;
+}
+
+.card-option {
+  width: 80px;
+  height: 80px;
+  background-color: #2c2c2c;
+  color: white;
+  border-radius: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-option:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 18px rgba(0, 0, 0, 0.15);
+}
+.card-option .label {
+  color: white !important;
+}
+.card-option:hover .label {
+  color: white !important;
+}
+
+.card-option:active {
+  transform: scale(0.95);
+}
+
+.card-option .icon {
+  font-size: 1.6rem;
+  margin-bottom: 0.25rem;
+  animation: slide-in-top 0.3s both;
+}
+
+.card-option .label {
+  font-size: 0.8rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Puedes agregar colores personalizados por bgClass */
+.bg-success-subtle:hover {
+  background-color: #198754 !important;
+}
+
+.bg-primary-subtle:hover {
+  background-color: #ffffff !important;
+}
+
+.bg-warning-subtle:hover {
+  background-color: #ffc107 !important;
+}
+
+/* Animación al entrar */
+@keyframes slide-in-top {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.ri2 {
+  position: relative;
+  display: table-cell;
+  text-decoration: none;
+  width: 60px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 15px;
+  font-size: 1.5em;
+}
